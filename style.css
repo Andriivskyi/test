@@ -49,6 +49,8 @@ model-viewer {
     .visual-block { 
         height: 400px; 
         width: 100%;
+        /* Додаємо легку тінь під моделлю */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
 
     model-viewer {
@@ -60,6 +62,12 @@ model-viewer {
         width: 100%; 
         padding: 20px;
         box-sizing: border-box;
+        
+        /* Ось те саме "антиприлепання" */
+        margin-top: 20px; 
+        border-top: 3px solid var(--accent-gold);
+        border-radius: 20px 20px 0 0;
+        background-color: var(--panel-bg);
     }
     
     #menu-toggle { display: none !important; }
