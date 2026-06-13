@@ -1,39 +1,83 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      background: #111;
-    }
-    model-viewer {
-      width: 100vw;
-      height: 100vh;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Конструктор Пам'ятників</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<model-viewer 
-  src="test.glb"
+    <div class="constructor-container">
+        
+        <div class="visual-block">
+            <div class="monument-preview">
+                <div class="layer layer-base" id="layerBase"></div>
+                <div class="layer layer-plate" id="layerPlate"></div>
+                <div class="layer layer-tumba" id="layerTumba"></div>
+                <div class="layer layer-arka" id="layerArka"></div>
+                <div class="layer layer-decor" id="layerDecor"></div>
+                
+                <div class="engraving-preview" id="engravingText">Прізвище Ім'я</div>
+            </div>
+        </div>
 
-  camera-controls
-  auto-rotate
-  rotation-per-second="10deg"
+        <div class="menu-block">
+            <h2>Конструктор Пам'ятника</h2>
+            <hr>
 
-  exposure="1.3"
+            <div class="menu-section">
+                <label>Основний матеріал (Камінь):</label>
+                <div class="buttons-grid">
+                    <button class="btn active" onclick="setStone('gabro',this)">Габро (Чорний)</button>
+                    <button class="btn" onclick="setStone('pokost',this)">Покостівка (Сірий)</button>
+                </div>
+            </div>
 
-  shadow-intensity="1"
-  shadow-softness="0.8"
+            <div class="menu-section">
+                <label>Форма Арки (Стели):</label>
+                <div class="buttons-grid">
+                    <button class="btn active" onclick="setArka('priama',this)">Пряма []</button>
+                    <button class="btn" onclick="setArka('khvylka',this)">Хвилька [~]</button>
+                    <button class="btn" onclick="setArka('kosa',this)">Коса [/\].</button>
+                </div>
+            </div>
 
-  camera-orbit="0deg 75deg 120%"
-  field-of-view="30deg"
+            <div class="menu-section">
+                <label>Низ / Облицювання цоколя:</label>
+                <div class="buttons-grid">
+                    <button class="btn active" onclick="setBase('obklady',this)">Обклади каменем</button>
+                    <button class="btn" onclick="setBase('plytka',this)">Плитка керамічна</button>
+                </div>
+            </div>
 
-  interaction-prompt="none">
+            <div class="menu-section">
+                <label>Художнє оформлення:</label>
+                <input type="text" id="clientName" placeholder="Введіть ПІБ для прев'ю" oninput="updateText()">
+                <div class="upload-box">
+                    <input type="file" id="photoUpload" accept="image/*">
+                    <label for="photoUpload">📷 Завантажити фото портрета</label>
+                </div>
+            </div>
 
-</model-viewer>
+            <div class="menu-section">
+                <label>Додаткові аксесуари:</label>
+                <div class="buttons-grid">
+                    <button class="btn toggle-btn" onclick="toggleAccessory('lampadka',this)">Лампадка</button>
+                    <button class="btn toggle-btn" onclick="toggleAccessory('vaza',this)">Ваза</button>
+                </div>
+            </div>
 
+            <div class="total-price-block">
+                <div class="price-title">Попередній розрахунок:</div>
+                <div class="price-value" id="totalPrice">45 000 грн</div>
+                <button class="btn-order" onclick="sendOrder()">Розрахувати & Замовити</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

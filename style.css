@@ -1,0 +1,154 @@
+:root {
+    --bg-color: #12161f;
+    --panel-bg: #1a202c;
+    --accent-gold: #d4af37;
+    --text-main: #ffffff;
+    --btn-inactive: #2d3748;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+}
+
+.constructor-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Ліва частина - прев'ю */
+.visual-block {
+    flex: 1;
+    background: radial-gradient(circle, #2a3447 0%, #12161f 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.monument-preview {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    /* Створюємо перспективу для всього пам'ятника */
+    transform: rotateX(20deg) rotateY(-20deg);
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+/* Шари деталей */
+.layer {
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    transition: all 0.3s ease;
+}
+
+/* Тимчасові кольорові блоки замість 3D моделей для тесту */
+.layer-base { width: 300px; height: 80px; bottom: 20px; left: 50px; background-color: #555; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); }
+.layer-plate { width: 280px; height: 30px; bottom: 100px; left: 60px; background-color: #777; }
+.layer-tumba { width: 140px; height: 40px; bottom: 130px; left: 130px; background-color: #444; }
+.layer-arka { width: 120px; height: 180px; bottom: 170px; left: 140px; background-color: #222; border-radius: 4px 4px 0 0; }
+
+/* Текст на арці з нахилом у перспективі */
+.engraving-preview {
+    position: absolute;
+    bottom: 270px;
+    left: 140px;
+    width: 120px;
+    text-align: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Права частина - меню */
+.menu-block {
+    width: 450px;
+    background-color: var(--panel-bg);
+    padding: 25px;
+    box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+    overflow-y: auto;
+}
+
+h2 { color: var(--accent-gold); margin-top: 0; }
+hr { border: 0; height: 1px; background: #334155; margin-bottom: 20px; }
+
+.menu-section { margin-bottom: 25px; }
+.menu-section label { display: block; margin-bottom: 10px; font-weight: 600; font-size: 14px; color: #cbd5e1; }
+
+.buttons-grid { display: flex; gap: 10px; }
+.btn {
+    flex: 1;
+    padding: 12px;
+    background-color: var(--btn-inactive);
+    border: 1px solid #4a5568;
+    color: var(--text-main);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.btn:hover { background-color: #4a5568; }
+.btn.active { background-color: var(--accent-gold); color: #000; border-color: var(--accent-gold); font-weight: bold; }
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--bg-color);
+    border: 1px solid #4a5568;
+    color: #fff;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.upload-box input { display: none; }
+.upload-box label {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background-color: #232d3f;
+    border: 1px dashed var(--accent-gold);
+    color: var(--accent-gold);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Блок чеку */
+.total-price-block {
+    background-color: var(--bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #2d3748;
+    margin-top: 30px;
+    text-align: center;
+}
+.price-title { font-size: 14px; color: #94a3b8; }
+.price-value { font-size: 32px; font-weight: bold; color: var(--accent-gold); margin: 10px 0; }
+
+.btn-order {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg, #d4af37 0%, #b89127 100%);
+    border: none;
+    color: #000;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+.btn-order:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+
+/* Адаптивність для телефонів */
+@media (max-width: 768px) {
+    .constructor-container { flex-direction: column; height: auto; }
+    .visual-block { height: 350px; }
+    .menu-block { width: auto; }
+}
