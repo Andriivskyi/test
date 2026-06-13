@@ -118,7 +118,23 @@ input[type="text"] {
 
 /* Адаптивність для телефонів */
 @media (max-width: 768px) {
-    .constructor-container { flex-direction: column; height: auto; }
-    .visual-block { height: 450px; }
-    .menu-block { width: auto; }
+    .constructor-container { 
+        flex-direction: column; 
+        height: auto; 
+    }
+    
+    .visual-block { 
+        height: 400px; /* Обов'язково задаємо фіксовану висоту для 3D-вікна */
+        width: 100%;
+    }
+
+    model-viewer {
+        height: 400px; /* Примусово задаємо висоту для плеєра */
+        width: 100%;
+    }
+
+    .menu-block { 
+        width: 100%; 
+        padding: 15px;
+    }
 }
