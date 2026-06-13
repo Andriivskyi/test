@@ -117,7 +117,6 @@ input[type="text"] {
 .btn-order:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
 
 /* Адаптивність для телефонів */
-/* Оновлений блок адаптивності в кінці style.css */
 @media (max-width: 768px) {
     .constructor-container { 
         flex-direction: column; 
@@ -137,5 +136,34 @@ input[type="text"] {
     .menu-block { 
         width: 100%; 
         padding: 15px;
+    }
+}
+/* Кнопка меню (видно лише на мобільних) */
+#menu-toggle {
+    display: none; 
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 100;
+    padding: 15px 25px;
+    background: #d4af37;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    #menu-toggle { display: block; } /* Показуємо кнопку тільки на тел */
+    
+    .menu-block {
+        display: none; /* Спочатку ховаємо меню */
+        position: fixed;
+        bottom: 80px;
+        left: 10px;
+        right: 10px;
+        background: #222;
+        border: 1px solid #d4af37;
+        padding: 15px;
+        border-radius: 10px;
     }
 }
