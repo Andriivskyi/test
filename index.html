@@ -12,13 +12,16 @@
         
         <div class="visual-block">
             <div class="monument-preview">
-                <div class="layer layer-base" id="layerBase"></div>
-                <div class="layer layer-plate" id="layerPlate"></div>
-                <div class="layer layer-tumba" id="layerTumba"></div>
-                <div class="layer layer-arka" id="layerArka"></div>
-                <div class="layer layer-decor" id="layerDecor"></div>
+
+                <div class="layer layer-arka" id="layerArka">
+                    <div class="engraving-preview" id="engravingText">Прізвище Ім'я</div>
+                </div>
                 
-                <div class="engraving-preview" id="engravingText">Прізвище Ім'я</div>
+                <div class="layer layer-tumba" id="layerTumba"></div>
+                <div class="layer layer-plate" id="layerPlate"></div>
+                <div class="layer layer-base" id="layerBase"></div>
+                <div class="layer layer-decor" id="layerDecor"></div>
+
             </div>
         </div>
 
@@ -29,25 +32,25 @@
             <div class="menu-section">
                 <label>Основний матеріал (Камінь):</label>
                 <div class="buttons-grid">
-                    <button class="btn active" onclick="setStone('gabro',this)">Габро (Чорний)</button>
-                    <button class="btn" onclick="setStone('pokost',this)">Покостівка (Сірий)</button>
+                    <button class="btn active" onclick="setStone('gabro', this)">Габро (Чорний)</button>
+                    <button class="btn" onclick="setStone('pokost', this)">Покостівка (Сірий)</button>
                 </div>
             </div>
 
             <div class="menu-section">
                 <label>Форма Арки (Стели):</label>
                 <div class="buttons-grid">
-                    <button class="btn active" onclick="setArka('priama',this)">Пряма []</button>
-                    <button class="btn" onclick="setArka('khvylka',this)">Хвилька [~]</button>
-                    <button class="btn" onclick="setArka('kosa',this)">Коса [/\].</button>
+                    <button class="btn active" onclick="setArka('priama', this)">Пряма []</button>
+                    <button class="btn" onclick="setArka('khvylka', this)">Хвилька [~]</button>
+                    <button class="btn" onclick="setArka('kosa', this)">Коса [/\].</button>
                 </div>
             </div>
 
             <div class="menu-section">
                 <label>Низ / Облицювання цоколя:</label>
                 <div class="buttons-grid">
-                    <button class="btn active" onclick="setBase('obklady',this)">Обклади каменем</button>
-                    <button class="btn" onclick="setBase('plytka',this)">Плитка керамічна</button>
+                    <button class="btn active" onclick="setBase('obklady', this)">Обклади каменем</button>
+                    <button class="btn" onclick="setBase('plytka', this)">Плитка керамічна</button>
                 </div>
             </div>
 
@@ -63,8 +66,8 @@
             <div class="menu-section">
                 <label>Додаткові аксесуари:</label>
                 <div class="buttons-grid">
-                    <button class="btn toggle-btn" onclick="toggleAccessory('lampadka',this)">Лампадка</button>
-                    <button class="btn toggle-btn" onclick="toggleAccessory('vaza',this)">Ваза</button>
+                    <button class="btn toggle-btn" onclick="toggleAccessory('lampadka', this)">Лампадка</button>
+                    <button class="btn toggle-btn" onclick="toggleAccessory('vaza', this)">Ваза</button>
                 </div>
             </div>
 
