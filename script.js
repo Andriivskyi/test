@@ -1,215 +1,125 @@
-:root {
-    --bg-color: #12161f;
-    --panel-bg: #1a202c;
-    --accent-gold: #d4af37;
-    --text-main: #ffffff;
-    --btn-inactive: #2d3748;
+// Базові налаштування цін
+let prices = {
+    stone: { gabro: 15000, pokost: 12000 },
+    arkaShape: { priama: 0, khvylka: 2500, kosa: 3500 },
+    baseType: { obklady: 20000, plytka: 14000 },
+    accessories: { lampadka: 1500, vaza: 2000 }
+};
+
+// Поточний вибір клієнта
+let currentSelection = {
+    stone: 'gabro',
+    arka: 'priama',
+    base: 'obklady',
+    lampadka: false,
+    vaza: false
+};
+
+// Зміна каменю (зміна текстурних класів)
+function setStone(stoneType, element) {
+    currentSelection.stone = stoneType;
+    updateActiveButton(element);
+
+    const arka = document.getElementById('layerArka');
+    const tumba = document.getElementById('layerTumba');
+    const plate = document.getElementById('layerPlate');
+
+    // Скидаємо старі класи текстур з верхніх деталей
+    arka.classList.remove('texture-gabro', 'texture-pokost');
+    tumba.classList.remove('texture-gabro', 'texture-pokost');
+    plate.classList.remove('texture-gabro', 'texture-pokost');
+
+    // Задаємо нові текстури верхнім деталям
+    if (stoneType === 'gabro') {
+        arka.classList.add('texture-gabro');
+        tumba.classList.add('texture-gabro');
+        plate.classList.add('texture-gabro');
+    } else {
+        arka.classList.add('texture-pokost');
+        tumba.classList.add('texture-pokost');
+        plate.classList.add('texture-pokost');
+    }
+    
+    // Перевикликаємо налаштування низу, щоб цоколь теж оновив колір каменю
+    setBase(currentSelection.base, null);
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-main);
+// Зміна формування арки
+function setArka(shape, element) {
+    currentSelection.arka = shape;
+    updateActiveButton(element);
+    
+    const arka = document.getElementById('layerArka');
+    if(shape === 'khvylka') {
+        arka.style.borderRadius = "20px 4px 0 0"; 
+    } else if (shape === 'kosa') {
+        arka.style.borderRadius = "100% 0 0 0"; 
+    } else {
+        arka.style.borderRadius = "4px 4px 0 0"; 
+    }
+    
+    calculateTotal();
 }
 
-.constructor-container {
-    display: flex;
-    height: 100vh;
+// Зміна типу облицювання низу
+function setBase(type, element) {
+    currentSelection.base = type;
+    if (element) updateActiveButton(element);
+    
+    const base = document.getElementById('layerBase');
+    base.classList.remove('texture-gabro', 'texture-pokost', 'texture-plytka');
+    
+    if (type === 'obklady') {
+        if (currentSelection.stone === 'gabro') {
+            base.classList.add('texture-gabro');
+        } else {
+            base.classList.add('texture-pokost');
+        }
+    } else if (type === 'plytka') {
+        base.classList.add('texture-plytka');
+    }
+    
+    calculateTotal();
 }
 
-/* Ліва частина - прев'ю */
-.visual-block {
-    flex: 1;
-    background: radial-gradient(circle, #2a3447 0%, #12161f 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+// Ввімкнення/вимкнення аксесуарів
+function toggleAccessory(item, element) {
+    currentSelection[item] = !currentSelection[item];
+    element.classList.toggle('active');
+    calculateTotal();
 }
 
-/* Надійний плоский макет без завалів перспективи */
-.monument-preview {
-    position: relative;
-    width: 350px;
-    height: 450px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding-bottom: 40px;
+// Оновлення текста ПІБ в реальному часі
+function updateText() {
+    let name = document.getElementById('clientName').value;
+    document.getElementById('engravingText').innerText = name ? name : "Прізвище Ім'я";
 }
 
-/* Автоматичне вирівнювання шарів один на один */
-.layer {
-    width: 100%;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+// Допоміжна функція для перемикання кнопок
+function updateActiveButton(element) {
+    if (!element) return;
+    const buttons = element.parentElement.querySelectorAll('.btn');
+    buttons.forEach(b => b.classList.remove('active'));
+    element.classList.add('active');
 }
 
-/* Точні пропорції деталей (від верху до низу) */
-.layer-arka { 
-    width: 140px; 
-    height: 180px; 
-    background-color: #151515; 
-    border-radius: 4px 4px 0 0;
-    position: relative;
-    z-index: 4;
+// Головна математична формула розрахунку
+function calculateTotal() {
+    let total = 0;
+    total += prices.stone[currentSelection.stone];
+    total += prices.arkaShape[currentSelection.arka];
+    total += prices.baseType[currentSelection.base];
+    
+    if(currentSelection.lampadka) total += prices.accessories.lampadka;
+    if(currentSelection.vaza) total += prices.accessories.vaza;
+    
+    document.getElementById('totalPrice').innerText = total.toLocaleString('uk-UA') + " грн";
 }
 
-.layer-tumba { 
-    width: 160px; 
-    height: 40px; 
-    background-color: #222222; 
-    z-index: 3;
+// Дія при натисканні "Замовити"
+function sendOrder() {
+    alert("Замовлення передано в обробку!\nДякуємо, з вами зв'яжуться протягом 15 хв.");
 }
 
-.layer-plate { 
-    width: 240px; 
-    height: 25px; 
-    background-color: #222222; 
-    z-index: 2;
-}
-
-.layer-base { 
-    width: 260px; 
-    height: 65px; 
-    background-color: #555555; 
-    z-index: 1;
-}
-
-/* Текст строго по центру арки */
-.engraving-preview {
-    position: absolute;
-    top: 50px;
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: rgba(255,255,255,0.8);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    z-index: 5;
-    pointer-events: none;
-}
-
-/* Права частина - меню */
-.menu-block {
-    width: 450px;
-    background-color: var(--panel-bg);
-    padding: 25px;
-    box-shadow: -5px 0 25px rgba(0,0,0,0.5);
-    overflow-y: auto;
-}
-
-h2 { color: var(--accent-gold); margin-top: 0; }
-hr { border: 0; height: 1px; background: #334155; margin-bottom: 20px; }
-
-.menu-section { margin-bottom: 25px; }
-.menu-section label { display: block; margin-bottom: 10px; font-weight: 600; font-size: 14px; color: #cbd5e1; }
-
-.buttons-grid { display: flex; gap: 10px; }
-.btn {
-    flex: 1;
-    padding: 12px;
-    background-color: var(--btn-inactive);
-    border: 1px solid #4a5568;
-    color: var(--text-main);
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-.btn:hover { background-color: #4a5568; }
-.btn.active { background-color: var(--accent-gold); color: #000; border-color: var(--accent-gold); font-weight: bold; }
-
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    background-color: var(--bg-color);
-    border: 1px solid #4a5568;
-    color: #fff;
-    border-radius: 6px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-
-.upload-box input { display: none; }
-.upload-box label {
-    display: block;
-    text-align: center;
-    padding: 12px;
-    background-color: #232d3f;
-    border: 1px dashed var(--accent-gold);
-    color: var(--accent-gold);
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-/* Блок чеку */
-.total-price-block {
-    background-color: var(--bg-color);
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #2d3748;
-    margin-top: 30px;
-    text-align: center;
-}
-.price-title { font-size: 14px; color: #94a3b8; }
-.price-value { font-size: 32px; font-weight: bold; color: var(--accent-gold); margin: 10px 0; }
-
-.btn-order {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(90deg, #d4af37 0%, #b89127 100%);
-    border: none;
-    color: #000;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 6px;
-    cursor: pointer;
-    text-transform: uppercase;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-}
-.btn-order:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
-
-/* Адаптивність для телефонів */
-@media (max-width: 768px) {
-    .constructor-container { flex-direction: column; height: auto; }
-    .visual-block { height: 350px; }
-    .menu-block { width: auto; }
-}
-/* ---- ЦИФРОВІ ТЕКСТУРИ ГРАНІТУ ---- */
-
-/* Чорний полірований Габро (дрібнозерниста текстура з глянцевим відблиском) */
-.texture-gabro {
-    background-color: #1a1a1a;
-    background-image: 
-        radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
-        radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
-    background-size: 4px 4px, 7px 7px;
-    background-position: 0 0, 2px 2px;
-    border: 1px solid #2e2e2e;
-    position: relative;
-}
-
-/* Ефект глянцю для Габро */
-.texture-gabro::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);
-    pointer-events: none;
-}
-
-/* Сіра Покостівка (виражена гранітна крихта) */
-.texture-pokost {
-    background-color: #b3b3b3;
-    background-image: 
-        radial-gradient(#4d4d4d 2px, transparent 2px),
-        radial-gradient(#1a1a1a 1px, transparent 1px),
-        radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px);
-    background-size: 8px 8px, 5px 5px, 6px 6px;
-    background-position: 0 0, 3px 3px, 1px 4px;
-    border: 1px solid #8c8c8c;
-}
+// Стартова ініціалізація
+setStone('gabro', null);
