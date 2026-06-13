@@ -5,35 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Конструктор Пам'ятників</title>
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 </head>
 <body>
 
     <div class="constructor-container">
         
         <div class="visual-block">
-            <div class="monument-preview">
-
-                <div class="layer layer-arka" id="layerArka">
-                    <div class="engraving-preview" id="engravingText">Прізвище Ім'я</div>
-                </div>
-                
-                <div class="layer layer-tumba" id="layerTumba"></div>
-                <div class="layer layer-plate" id="layerPlate"></div>
-                <div class="layer layer-base" id="layerBase"></div>
-                <div class="layer layer-decor" id="layerDecor"></div>
-
-            </div>
+            <model-viewer 
+                id="monument3D" 
+                src="test.glb" 
+                camera-controls 
+                auto-rotate 
+                shadow-intensity="1.5" 
+                exposure="1.2"
+                interaction-prompt="auto"
+                ar>
+            </model-viewer>
         </div>
 
         <div class="menu-block">
-            <h2>Конструктор Пам'ятника</h2>
+            <h2>3D Конструктор Пам'ятника</h2>
             <hr>
 
             <div class="menu-section">
                 <label>Основний матеріал (Камінь):</label>
                 <div class="buttons-grid">
                     <button class="btn active" onclick="setStone('gabro', this)">Габро (Чорний)</button>
-                    <button class="btn" onclick="setStone('pokost', this)">Покостівка (Сірий)</button>
+                    <button class="btn" onclick="setStone('pokost', this)">Покостівка (Сірей)</button>
                 </div>
             </div>
 
@@ -56,7 +55,7 @@
 
             <div class="menu-section">
                 <label>Художнє оформлення:</label>
-                <input type="text" id="clientName" placeholder="Введіть ПІБ для прев'ю" oninput="updateText()">
+                <input type="text" id="clientName" placeholder="Введіть ПІБ для прев'ю">
                 <div class="upload-box">
                     <input type="file" id="photoUpload" accept="image/*">
                     <label for="photoUpload">📷 Завантажити фото портрета</label>
