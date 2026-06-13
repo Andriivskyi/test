@@ -78,3 +78,13 @@ function sendOrder() {
 
 // Стартовий прорахунок при завантаженні сторінки
 calculateTotal();
+// Функція для відкриття/закриття меню на смартфоні
+function toggleMenu() {
+    const menu = document.getElementById('side-menu');
+    // Якщо меню приховане - показуємо, якщо відкрите - ховаємо
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'block';
+    }
+}
