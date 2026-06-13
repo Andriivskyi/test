@@ -15,20 +15,37 @@ let currentSelection = {
     vaza: false
 };
 
-// Зміна каменю (зміна кольорів елементів)
+// Зміна каменю (зміна текстурних класів)
 function setStone(stoneType, element) {
     currentSelection.stone = stoneType;
     
     // Перемикання активної кнопки в меню
     updateActiveButton(element);
 
-    // Візуальна зміна кольору шарів (імітація каменю)
-    const baseColor = (stoneType === 'gabro') ? '#222222' : '#999999';
-    const arkaColor = (stoneType === 'gabro') ? '#151515' : '#888888';
-    
-    document.getElementById('layerArka').style.backgroundColor = arkaColor;
-    document.getElementById('layerTumba').style.backgroundColor = baseColor;
-    document.getElementById('layerPlate').style.backgroundColor = baseColor;
+    // Знаходимо елементи пам'ятника
+    const arka = document.getElementById('layerArka');
+    const tumba = document.getElementById('layerTumba');
+    const plate = document.getElementById('layerPlate');
+    const base = document.getElementById('layerBase');
+
+    // Скидаємо старі класи текстур
+    arka.classList.remove('texture-gabro', 'texture-pokost');
+    tumba.classList.remove('texture-gabro', 'texture-pokost');
+    plate.classList.remove('texture-gabro', 'texture-pokost');
+    base.classList.remove('texture-gabro', 'texture-pokost');
+
+    // Нав'язуємо новий клас текстури залежно від вибору
+    if (stoneType === 'gabro') {
+        arka.classList.add('texture-gabro');
+        tumba.classList.add('texture-gabro');
+        plate.classList.add('texture-gabro');
+        base.classList.add('texture-gabro');
+    } else {
+        arka.classList.add('texture-pokost');
+        tumba.classList.add('texture-pokost');
+        plate.classList.add('texture-pokost');
+        base.classList.add('texture-pokost');
+    }
     
     calculateTotal();
 }
