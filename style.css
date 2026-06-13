@@ -213,3 +213,13 @@ input[type="text"] {
     background-position: 0 0, 3px 3px, 1px 4px;
     border: 1px solid #8c8c8c;
 }
+
+/* Керамічна плитка (темно-сіра сітка) */
+.texture-plytka {
+    background-color: #334155;
+    background-image: 
+        linear-gradient(to right, #1e293b 2px, transparent 2px),
+        linear-gradient(to bottom, #1e293b 2px, transparent 2px);
+    background-size: 20px 20px; /* створює ефект квадратної плитки */
+    border: 1px solid #1e293b;
+}
