@@ -223,3 +223,11 @@ input[type="text"] {
     background-size: 20px 20px; /* створює ефект квадратної плитки */
     border: 1px solid #1e293b;
 }
+
+/* Автоматичне вирівнювання шарів один на один */
+.layer {
+    width: 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+    overflow: hidden; /* <--- ДОДАЙ ЦЕЙ РЯДОК */
+}
