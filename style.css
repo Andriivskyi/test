@@ -26,44 +26,71 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
+/* Надійний плоский макет без завалів перспективи */
 .monument-preview {
     position: relative;
-    width: 400px;
-    height: 500px;
-    /* Створюємо перспективу для всього пам'ятника */
-    transform: rotateX(20deg) rotateY(-20deg);
-    transform-style: preserve-3d;
-    transition: transform 0.5s ease;
+    width: 350px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 40px;
 }
 
-/* Шари деталей */
+/* Автоматичне вирівнювання шарів один на один */
 .layer {
-    position: absolute;
-    background-size: cover;
-    background-position: center;
+    width: 100%;
     transition: all 0.3s ease;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
 }
 
-/* Тимчасові кольорові блоки замість 3D моделей для тесту */
-.layer-base { width: 300px; height: 80px; bottom: 20px; left: 50px; background-color: #555; box-shadow: 5px 5px 15px rgba(0,0,0,0.5); }
-.layer-plate { width: 280px; height: 30px; bottom: 100px; left: 60px; background-color: #777; }
-.layer-tumba { width: 140px; height: 40px; bottom: 130px; left: 130px; background-color: #444; }
-.layer-arka { width: 120px; height: 180px; bottom: 170px; left: 140px; background-color: #222; border-radius: 4px 4px 0 0; }
+/* Точні пропорції деталей (від верху до низу) */
+.layer-arka { 
+    width: 140px; 
+    height: 180px; 
+    background-color: #151515; 
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    z-index: 4;
+}
 
-/* Текст на арці з нахилом у перспективі */
+.layer-tumba { 
+    width: 160px; 
+    height: 40px; 
+    background-color: #222222; 
+    z-index: 3;
+}
+
+.layer-plate { 
+    width: 240px; 
+    height: 25px; 
+    background-color: #222222; 
+    z-index: 2;
+}
+
+.layer-base { 
+    width: 260px; 
+    height: 65px; 
+    background-color: #555555; 
+    z-index: 1;
+}
+
+/* Текст строго по центру арки */
 .engraving-preview {
     position: absolute;
-    bottom: 270px;
-    left: 140px;
-    width: 120px;
+    top: 50px;
+    width: 100%;
     text-align: center;
-    font-size: 11px;
-    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255,255,255,0.8);
     text-transform: uppercase;
     letter-spacing: 1px;
+    z-index: 5;
+    pointer-events: none;
 }
 
 /* Права частина - меню */
