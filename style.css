@@ -40,11 +40,12 @@ body {
     padding-bottom: 40px;
 }
 
-/* Автоматичне вирівнювання шарів один на один */
+/* Автоматичне вирівнювання шарів один на один та обрізання кутів арки */
 .layer {
     width: 100%;
     transition: all 0.3s ease;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+    overflow: hidden;
 }
 
 /* Точні пропорції деталей (від верху до низу) */
@@ -179,9 +180,10 @@ input[type="text"] {
     .visual-block { height: 350px; }
     .menu-block { width: auto; }
 }
+
 /* ---- ЦИФРОВІ ТЕКСТУРИ ГРАНІТУ ---- */
 
-/* Чорний полірований Габро (дрібнозерниста текстура з глянцевим відблиском) */
+/* Чорний полірований Габро */
 .texture-gabro {
     background-color: #1a1a1a;
     background-image: 
@@ -202,7 +204,7 @@ input[type="text"] {
     pointer-events: none;
 }
 
-/* Сіра Покостівка (виражена гранітна крихта) */
+/* Сіра Покостівка */
 .texture-pokost {
     background-color: #b3b3b3;
     background-image: 
@@ -214,20 +216,12 @@ input[type="text"] {
     border: 1px solid #8c8c8c;
 }
 
-/* Керамічна плитка (темно-сіра сітка) */
+/* Керамічна плитка */
 .texture-plytka {
     background-color: #334155;
     background-image: 
         linear-gradient(to right, #1e293b 2px, transparent 2px),
         linear-gradient(to bottom, #1e293b 2px, transparent 2px);
-    background-size: 20px 20px; /* створює ефект квадратної плитки */
+    background-size: 20px 20px;
     border: 1px solid #1e293b;
-}
-
-/* Автоматичне вирівнювання шарів один на один */
-.layer {
-    width: 100%;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-    overflow: hidden; /* <--- ДОДАЙ ЦЕЙ РЯДОК */
 }
